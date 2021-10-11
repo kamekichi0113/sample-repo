@@ -22,7 +22,6 @@ git commit -m <"commit message">
 git log
 コミットの履歴を一覧表示する。
 
-
 ■ pushする前にpullする。
 アクティブブランチにpullされる。
 git pull origin main
