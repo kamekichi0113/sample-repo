@@ -38,3 +38,8 @@ git checkout main
 リモートリポのmainブランチをpullする
 git pull origin main
 
+■不要なブランチの削除
+ローカルブランチ
+git branch -d update-readme
+リモートブランチ
+HPで削除
