@@ -27,7 +27,9 @@ git log
 git pull origin main
 git push origin update-readme
 
-■pullしてローカルリポを更新する
+■Github上でpull requestしてmainブランチにマージする。
+
+■mainブランチをpullしてローカルリポを更新する
 mainブランチに移動する
 git checkout main
 リモートリポのmainブランチをpullする
@@ -38,3 +40,12 @@ git pull origin main
 git branch -d update-readme
 リモートブランチ
 HPで削除
+
+■リモートリポからローカルリポに情報をfetchする。
+pull = fetch + merge
+git fetch <remote_ref>
+remote_refを省略すると、デフォルトでoriginとなる。
+
+git fetch --prune
+git pull --prune
+自動的にリモートで削除されているリモートブランチを削除してくれる
