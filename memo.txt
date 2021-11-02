@@ -1,3 +1,61 @@
+■ Gitインストール
+git versionでバージョンが表示されればOK．
+
+■ SSHの設定
+https://datawokagaku.com/github_ssh/
+
+# ssh key の作成
+$ ssh-keygen -t ed25519 -C "<email address>"
+
+# ssh-agentを起動させる
+$ eval "$(ssh-agent -s)"
+
+$ code ~/.ssh/config
+Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+-Kオプションをつけるとうまくいかない
+$ ssh-add -K ~/.ssh/id_ed25519
+
+$ ssh-add ~/.ssh/id_ed25519
+
+公開鍵をクリップボードにコピーしてgithubに設定する．
+~/.ssh/id_ed25519.pub
+
+■zshの設定
+
+git clone git@github.com:romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+code ~/.zshrc
+source ~/.zshrc
+
+echo $SHELL
+/bin/zsh
+
+指定のシェルを指定する
+chsh -s <shell>
+
+~ = スクイブル
+
+Oh My Zsh をインストールする．
+Powerlevel10kをcloneする
+git clone git@github.com:romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+
+~/.zshrc に
+ZSH_THEME="powerlevel10k/powerlevel10k"
+を追加する．
+
+p10k configure で 質問形式でp10kの設定を行う。
+
+
+■ Gitの基本ワークフロー
+1. リポジトリをコピー
+2. ローカルリポに更新用ブランチを作成
+3. ファイルを更新してコミットする．(add, commit)
+4. ローカルリポをリモートリポに反映する．(push)
+5. 更新用ブランチをmainブランチに反映する．（リモートリポで）
+6. リモート
+
 git remote -v
 リモートリポのURLを確認する。
 
@@ -41,11 +99,38 @@ git branch -d update-readme
 リモートブランチ
 HPで削除
 
-■リモートリポからローカルリポに情報をfetchする。
+■リモートリポからローカルリポに情報をfetchする。(mergeの説明はここではされていない)
 pull = fetch + merge
 git fetch <remote_ref>
 remote_refを省略すると、デフォルトでoriginとなる。
+情報をとってくるだけで、マージはしない。
+ローカルリポのremotes/<remote_ref>/<branchname>に情報が更新されていく。
+
+■git breanch -aでremotes/以下のリポを表示。
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+git checkout origin/main
 
 git fetch --prune
 git pull --prune
 自動的にリモートで削除されているリモートブランチを削除してくれる
+
+git pullで
+コンフリクトが起きた時の対処法
+編集して、git add → git commitする。
+git log --oneline --graphでコミット履歴を確認する。
+
+プルリクエストを作成する。
+git push origin <branchname>
+ブランチがなければ、リモート上に作ってくれる。
+
+■fork元のリポジトリにpull requestを出す。
+・管理者は自分ではない
+・なぜその変更が必要なのか丁寧に説明する
+・fork元のリポジトリルールに従う。(How to contributeを確認する。)
+・事前にfork元のリポをfetchしてマージしておく。
+
+ローカルリポにfork元のリポ情報をセットする
+git remote add upstream <repo_url>
+git remote -v の originに追加するイメージ。
