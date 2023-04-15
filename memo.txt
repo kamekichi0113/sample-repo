@@ -34,6 +34,8 @@ echo $SHELL
 
 指定のシェルを指定する
 chsh -s <shell>
+chsh -s /bin/bash
+chsh -s /bin/zsh
 
 ~ = スクイブル
 
